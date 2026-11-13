@@ -130,6 +130,8 @@ img.gone { content: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAA
 .nav.scrolled { background: var(--nav-bg); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border-bottom-color: var(--line); }
 .nav-in { height: var(--nav-h); display: flex; align-items: center; gap: 16px; container-type: inline-size; }
 /* very large text on a phone: the brand keeps its leaf and CORE, and Menu stays on screen */
+/* narrow phones: "Unofficial website" goes on two lines rather than being cut off (one line needs about 19.3em) */
+@container (max-width: 20em) { .brand small { white-space: normal; width: min-content; text-align: center; line-height: 1.2; } }
 @container (max-width: 16.5em) { .brand small { display: none; } }
 .brand { display: inline-flex; align-items: center; gap: 10px; min-width: 0; overflow-x: clip; text-decoration: none; color: var(--ink); font: 600 1.14rem/1 var(--display); letter-spacing: -.01em; white-space: nowrap; }
 .brand-mark { width: 26px; height: 26px; color: var(--accent-ink); filter: drop-shadow(0 0 8px var(--glow)); }
@@ -169,10 +171,11 @@ kbd { font: 500 .68rem/1 var(--mono); padding: 4px 6px; border-radius: 5px; bord
 .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
 .btn[aria-busy="true"] { cursor: progress; }
 .btn[aria-busy="true"]::after { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: spin .7s linear infinite; }
-.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 12px; border-radius: var(--r-pill); border: 1px solid var(--line-2); background: var(--surface); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--ink-2); font: 500 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
-.chip .dot { width: 8px; height: 8px; border-radius: 0 100% 0 100%; background: var(--accent); box-shadow: 0 0 10px var(--glow); }
+.chip { display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 5px 12px; box-sizing: border-box; border-radius: var(--r-pill); border: 1px solid var(--line-2); background: var(--surface); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--ink-2); font: 500 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
 .chip .chk { width: 15px; height: 15px; color: var(--accent-ink); }
-.chip b { font-weight: 500; color: var(--ink); }
+.chip b { font-weight: 500; color: var(--ink); white-space: nowrap; }
+/* on narrow phones the label and the date take a line each, the date kept whole */
+.chip > span { line-height: 1.35; }
 .src { position: relative; display: inline-flex; align-items: center; height: 20px; padding: 0 7px; margin-left: 4px; border-radius: var(--r-1); border: 1px solid var(--line-2); background: var(--surface-2); color: var(--ink-3); font: 500 .64rem/1 var(--mono); letter-spacing: .08em; text-decoration: none; vertical-align: 2px; white-space: nowrap; transition: color var(--t-2), border-color var(--t-2), background-color var(--t-2); }
 a.src::after { content: ""; position: absolute; inset: -12px -6px; }
 a.src:hover { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent-ink) 55%, transparent); background: color-mix(in srgb, var(--accent-ink) 9%, transparent); }
@@ -795,7 +798,7 @@ textarea:disabled { opacity: .55; cursor: not-allowed; }
     <a class="brand" href="#top" aria-label="CORE, unofficial website. Back to top">
       <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6c5.6 3 7.9 9.3 0 18.8C4.1 11.9 6.4 5.6 12 2.6z" fill="currentColor" opacity=".22"/><path d="M12 2.6c5.6 3 7.9 9.3 0 18.8C4.1 11.9 6.4 5.6 12 2.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 5.5v15M12 9.2l3-2.2M12 9.2l-3-2.2M12 12.8l3.6-2.4M12 12.8l-3.6-2.4M12 16.4l3-2M12 16.4l-3-2" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
       <span>CORE</span>
-      <small>Unofficial</small>
+      <small>Unofficial website</small>
     </a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#now">Videos</a>
@@ -831,8 +834,7 @@ textarea:disabled { opacity: .55; cursor: not-allowed; }
     <div class="wrap hero-in">
       <div class="hero-copy">
         <div class="hud">
-          <span class="chip"><i class="dot" aria-hidden="true"></i>Unofficial website</span>
-          <span class="chip"><svg class="ico chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-8 5-14 15-15-1 10-7 15-15 15z"/><path d="M8.5 12.5l2.4 2.4 4.6-5"/></svg>Checked <b data-fill="verified-short">Nov 11, 2026</b></span>
+          <span class="chip"><svg class="ico chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-8 5-14 15-15-1 10-7 15-15 15z"/><path d="M8.5 12.5l2.4 2.4 4.6-5"/></svg><span>Information updated <b data-fill="verified-short">Nov 11, 2026</b></span></span>
         </div>
         <h1 id="hero-title">
           <span class="sr-only">CORE</span>
@@ -1419,7 +1421,7 @@ const CORE = {
   // out from the start time. {streak}, {latest} and {views:<id>} fill in from the video list.
   timeline: [
     { date: "2026-11-19", kind: "upcoming", text: "GTA 6 comes out, and all six start a marathon of the game at launch.", src: "rs ed wg2" },
-    { date: "2026-11-12", kind: "awards", text: "The Streamer Awards 2026, from 3 PM Pacific: CORE is up for Best Content Group, its creators for 12 more.", src: "tsc tsa" },
+    { date: "2026-11-12", kind: "awards", text: "The Streamer Awards 2026: CORE was up for Best Content Group, its creators for 12 more.", src: "tsc tsa" },
     { date: "2026-10-31", kind: "past", text: "Fan voting for The Streamer Awards closes. CORE's videos from October 18 to November 1 asked fans to vote.", src: "tsa v:H438v5IcxFs v:3Sbj_BZORr4" },
     { date: "2026-10-28", end: "2026-11-08", kind: "past", text: "CORE in Japan, on every channel: Lacy streams and vlogs it from October 28, Stable Ronaldo posts 72 hours of the trip, Marlon recaps it on stream, and CORE's own $1 vs $10,000 restaurants video follows on November 8. Silky went too, though he didn't stream much of it.", src: "w:y5i2k12XrhU w:ehe9nkND3ds w:ZlFubO6hf2c w:9ooMOdD6Pkg v:ANoZNWQXYZ4 ed" },
     { date: "2026-10-18", end: "2026-10-25", kind: "past", text: "FaZe Rug joins CORE for two videos: Silent Library, then a night in a haunted house.", src: "v:H438v5IcxFs v:WJT7oeyEouY" },
